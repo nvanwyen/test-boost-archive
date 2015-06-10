@@ -1,10 +1,11 @@
 LIB=-lboost_iostreams -lboost_serialization
-CPP=test-archive.cpp
-EXE=test-archive
+HPP=arc.hpp item.hpp
+CPP=main.cpp
+EXE=test-archive2
 
 all: ${EXE}
 
-${EXE}: ${CPP}
+${EXE}: ${HPP} ${CPP}
 	@g++ -g -o ${EXE} ${CPP} ${LIB}
 	@echo "To test: use \"make run\""
 
