@@ -193,6 +193,10 @@ class item
             }
         };
 
+        //
+        item( std::string n )
+            : name_( n ) {}
+
         typedef std::vector<subitem> subitems;
 
         std::string get_name() { return name_; }
@@ -206,6 +210,9 @@ class item
         //
         std::string name_;
         subitems subitems_;
+
+        //
+        item() {}
 
         // need friendship specified, so boost:;archive can access private membership
         friend class boost::serialization::access;
@@ -223,9 +230,6 @@ typedef std::vector<item> items;
 //
 void populate_item( item& itm )
 {
-    // create some dummy data
-    itm.set_name( random_string() );
-
     for ( int i = 0; i < NUM_SUBITEMS; ++i )
         itm.get_subitems().push_back( item::subitem( random_string(),
                                                      random_string()
@@ -239,7 +243,7 @@ void populate_items( items& itm )
     // create more dummy data
     for ( int i = 0; i < NUM_ITEMS; ++i )
     {
-        item val;
+        item val( random_string() );
 
         populate_item( val );
         itm.push_back( val );

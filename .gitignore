@@ -26,3 +26,7 @@
 *.exe
 *.out
 *.app
+
+# generated test files
+a.file
+test-archive
