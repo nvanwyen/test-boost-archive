@@ -5,6 +5,8 @@
 #include <vector>
 #include <boost/serialization/access.hpp>
 
+#include "thing.hpp"
+
 //
 class item
 {
@@ -14,6 +16,7 @@ class item
         {
             std::string name;
             std::string value;
+            things      other;
 
             //
             subitem() {}    // default construtor is needed for boost::archive::load
@@ -26,6 +29,7 @@ class item
             {
                 ar & name;
                 ar & value;
+                ar & other;
             }
         };
 

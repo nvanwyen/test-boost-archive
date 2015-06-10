@@ -17,6 +17,8 @@
 //
 #define NUM_ITEMS       5
 #define NUM_SUBITEMS    3
+#define NUM_THINGS      9
+
 #define RANDOM_LEMGTH   8
 
 //
@@ -43,13 +45,32 @@ std::string random_string()
 }
 
 //
+void popluate_things( things& itm )
+{
+    for ( int i = 0; i < NUM_THINGS; ++i )
+    {
+        thing thg( random_string() );
+
+        for ( int j; i < NUM_THINGS; ++i )
+            thg.add_stuff( random_string() );
+
+        itm.push_back( thg );
+    }
+}
+
+//
 void populate_item( item& itm )
 {
     for ( int i = 0; i < NUM_SUBITEMS; ++i )
-        itm.get_subitems().push_back( item::subitem( random_string(),
-                                                     random_string()
-                                                   + "\n          "
-                                                   + random_string() ) );
+    {
+        item::subitem sub( random_string(),
+                           random_string()
+                         + "\n          "
+                         + random_string() );
+
+        popluate_things( sub.other );
+        itm.get_subitems().push_back( sub );
+    }
 }
 
 //
@@ -75,6 +96,15 @@ void print_item( item& itm )
     {
         std::cout << "   name:  " << (*i).name  << std::endl;
         std::cout << "   value: " << (*i).value << std::endl;
+
+        for ( things::iterator t = (*i).other.begin(); t != (*i).other.end(); ++t )
+        {
+            std::cout << "    more: " << (*t).get_more() << std::endl;
+
+            for ( std::vector<std::string>::iterator s = (*t).get_stuff().begin(); 
+                  s != (*t).get_stuff().end(); ++s )
+                std::cout << "       +: " << (*s) << std::endl;
+        }
     }
 
     std::cout << std::endl << std::flush; 

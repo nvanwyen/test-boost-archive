@@ -1,5 +1,5 @@
 LIB=-lboost_iostreams -lboost_serialization
-HPP=arc.hpp item.hpp
+HPP=arc.hpp item.hpp thing.hpp
 CPP=main.cpp
 EXE=test-archive2
 
